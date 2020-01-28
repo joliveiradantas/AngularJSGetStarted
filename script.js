@@ -8,7 +8,9 @@
     anular una variables global.
     Como evitar las variables globales?
 */
-var program  = function(){
+
+//Immediately invoked function expression
+(function(){
     var createWorker = function() {
 
         var workCount = 0;
@@ -22,7 +24,6 @@ var program  = function(){
             workCount += 1;
             console.log("task 2 " + workCount);
         };
-
         
         return {
             job1: task1,
@@ -35,6 +36,10 @@ var program  = function(){
     worker.job2();
     worker.job2();
     worker.job2();
-}
+}());
 
-program();
+/* 
+    Todo el código está dentro de una función y no estamos creando ninguna variable
+    global. Se utiliza IIFE para controlar el alcance de las variables, para construir
+    módulos para propoercionar encapsulamiento.
+*/
