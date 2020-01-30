@@ -11,24 +11,36 @@
 
     <div>{{error}}</div>
 
-      <form name="searchUser" ng-submit="search(username)">
-      <!--ng-model adjuntará una propriedad "username" al $scope
-          Se puede aplicar esa directiva a inputs, selects, text-area
-          Esta directiva mantiene los datos en sincronizacion-->
-
-      <!--Para que el browser pueda decir al usuario que este input es un campo requerido
-          no podemos serguir manejando el ng-click en el evento del boton. Por esto debemos
-          usar el ng-submit en el form para atrapar el evento de envío del form y luego haga
-          la busqueda con el search pasando el username -->    
+      <form name="searchUser" ng-submit="search(username)">    
       <input type="search" required placeholder="Username to find" ng-model="username">
       <input type="submit" value="Search">
-      <!--Generalmente la expresión que ponemos al ng-click es una llamada a una función-->
     </form>
     
     <div>
      <h2>{{user.name}}</h2>
-     <img src="{{user.avatar_url}}" title="{{user.name}}">
+     <img ng-src="{{user.avatar_url}}" title="{{user.name}}">
     </div>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Stars</th>
+          <th>Language</th>
+        </tr>
+        <tbody>
+          <tr ng-repeat="repo in repos">
+            <td>{{repo.name}}</td>
+            <!--Angular tiene el concepto de filtros. Un filtro es algo que se invoca
+                y canaliza datos. Puedo agregar un digíto después del punto number:1.
+                Hay muchos filtros que permiten formatear numeros como monedas, fecha,JSON,
+                incluso ordenar una colección-->
+            <td>{{repo.stargazers_count | number}}</td>
+            <td>{{repo.language}}</td>
+          </tr>
+        </tbody>
+      </thead>
+    </table>
   </body>
 
 </html>
