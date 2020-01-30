@@ -22,6 +22,12 @@
         
     };
 
-    app.controller("MainCtrl", MainCtrl)
+    /* 
+        En el proceso de minificación se cambia los nombres de variables y parámetros
+        por eso es importante informar a Angular, que el primer parámetro corresponde a 
+        $scope y el segundo a $http
+    */
+    app.controller("MainCtrl", ["$scope", "$http", MainCtrl])
 
 }())    
+
