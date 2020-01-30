@@ -13,6 +13,15 @@
       {{error}}
     </div>
 
+    {{username}}
+    <form name="searchUser">
+      <!--ng-model adjuntará una propriedad "useername" al $scope
+          Se puede aplicar esa directiva a inputs, selects, text-area
+          Esta directiva mantiene los datos en sincronizacion-->
+      <input type="search" placeholder="Username to find" ng-model="username">
+      <input type="submit" value="Search">
+    </form>
+    
     <div>
       <div>
         Name: {{user.name}}
