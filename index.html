@@ -9,29 +9,24 @@
   <body ng-controller="MainCtrl">
     <h1>{{message}}</h1>
 
-    <div>
-      {{error}}
-    </div>
+    <div>{{error}}</div>
 
     {{username}}
     <form name="searchUser">
-      <!--ng-model adjuntará una propriedad "useername" al $scope
+      <!--ng-model adjuntará una propriedad "username" al $scope
           Se puede aplicar esa directiva a inputs, selects, text-area
           Esta directiva mantiene los datos en sincronizacion-->
-      <input type="search" placeholder="Username to find" ng-model="username">
-      <input type="submit" value="Search">
+
+      <!--Para que el browser pueda decir al usuario que este input es un campo requerido
+          no podemos serguir manejando el ng-click en el evento del boton-->    
+      <input type="search" required placeholder="Username to find" ng-model="username">
+      <input type="submit" value="Search" ng-click="search(username)">
+      <!--Generalmente la expresión que ponemos al ng-click es una llamada a una función-->
     </form>
     
     <div>
-      <div>
-        Name: {{user.name}}
-      </div>      
-      <div>
-        Location: {{user.location}}
-      </div>
-      <div>
-        <img ng-src="{{user.avatar_url}}" title="{{user.name}}">
-      </div>
+     <h2>{{user.name}}</h2>
+     <img src="{{user.avatar_url}}" title="{{user.name}}">
     </div>
   </body>
 

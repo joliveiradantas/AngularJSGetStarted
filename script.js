@@ -1,7 +1,7 @@
 
 (function() {
 
-    //forma de definir un módulo pasando una matriz vacia para decir que no tiene
+    //La forma de definir un módulo pasando una matriz vacia para decir que no tiene
     //dependencias con otros módulos
     var app = angular.module("gitHubViewer", [])
 
@@ -13,10 +13,13 @@
 
         var onError = function(reason){
             $scope.error = "Could not fetch the user";
-        };    
+        };  
         
-        $http.get("https://api.github.com/users/angular")
-                .then(onUserComplete, onError);
+        $scope.search = function(username){
+            $http.get("https://api.github.com/users/" + username)
+                    .then(onUserComplete, onError);
+        };
+        
 
 
         $scope.username = "angular";
