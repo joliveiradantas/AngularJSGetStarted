@@ -29,7 +29,6 @@
 
         $scope.username = "angular";
         $scope.message = "GitHub Viewer";
-        
     };
 
     /* 

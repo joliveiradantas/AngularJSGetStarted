@@ -29,7 +29,10 @@
           <th>Language</th>
         </tr>
         <tbody>
-          <tr ng-repeat="repo in repos">
+          <!--orderBy necesita un parámetro con la propriedad correspondiente del repo
+              Con las '' digo a Angular que es una string literal, para que no la evalúe
+              como una expresión. Si no tuviesa '' Angular buscaría en el $scope el parámetro-->
+          <tr ng-repeat="repo in repos | orderBy:'-stargazers_count'">
             <td>{{repo.name}}</td>
             <!--Angular tiene el concepto de filtros. Un filtro es algo que se invoca
                 y canaliza datos. Puedo agregar un digíto después del punto number:1.
