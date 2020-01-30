@@ -8,6 +8,21 @@
 
   <body ng-controller="MainCtrl">
     <h1>{{message}}</h1>
+
+    <div>
+      <div>First Name: {{person.firstName}}</div>
+      <div>Last Name: {{person.lastName}}</div>
+      <div>
+        <!--Como funciona un navegador?
+        Cuando se renderiza este HTML el navegador verá  "<img src=>" y luego la binding
+        expression. Pero la misma solo es evaluada cuando Angular entra en funcionamiento. Tan pronto
+        ve ese atributo intentará descargar esa imagen, tratando a esa binding expression como una URL.
+        Cada vez que refresco la pagina intento recuperar esa foto y obtuvo un error 404. Por eso está
+        la directiva ng-src. Una vez que Angular esté activo y en funcionamiento, evalue la
+        binding expression-->
+        <img ng-src="{{person.imageSrc}}" title="{{person.firstName}} {{person.lastName}}">
+      </div>
+    </div>
   </body>
 
 </html>
