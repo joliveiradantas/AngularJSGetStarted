@@ -16,19 +16,23 @@
       <input type="submit" value="Search">
     </form>
     
-    <div>
+    <!--ng-show mira esa expresión y si la misma es verdadera
+        en JS, permitirá que se muestre este markup-->
+    <div ng-show="user">
      <h2>{{user.name}}</h2>
      <img ng-src="{{user.avatar_url}}" title="{{user.name}}">
+      Order:
+      <select ng-model="repoSortOrder">
+        <option value="+name">Name</option>
+        <option value="-stargazers_count">Stars</option>
+        <option value="+language">Language</option>
+      </select>
     </div>
 
-    Order:
-    <select ng-model="repoSortOrder">
-      <option value="+name">Name</option>
-      <option value="-stargazers_count">Stars</option>
-      <option value="+language">Language</option>
-    </select>
-    
-    <table>
+    <!--Ambas directivas son útiles cuando queremos que algo aparezca
+        o desaparezca de la vista, pero teniendo en cuenta alguna expresión
+        o flag en el modelo -->
+    <table ng-hide="!user"> <!--Oculta si la expresión es true-->
       <thead>
         <tr>
           <th>Name</th>
