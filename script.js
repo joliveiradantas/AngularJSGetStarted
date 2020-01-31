@@ -29,7 +29,7 @@
 
         $scope.username = "angular";
         $scope.message = "GitHub Viewer";
-        $scope.repoSortOrder = "stargazers_count";
+        $scope.repoSortOrder = "-stargazers_count";
     };
 
     /* 
