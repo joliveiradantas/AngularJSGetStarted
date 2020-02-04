@@ -3,7 +3,7 @@
     
     var app = angular.module("gitHubViewer", [])
 
-    var MainCtrl = function($scope, $http) {
+    var MainCtrl = function($scope, $http, $interval) {
 
         var onUserComplete = function(response){
             $scope.user = response.data;
@@ -19,17 +19,37 @@
         var onError = function(reason){
             $scope.error = "Could not fetch the data";
         };  
+
+        /* Cuando se recarga la pagina el usuario tendra 5 segundos para cambiar el nombrey hacer
+           una busqueda, sino la busqueda se automatizará.Como invocar la función 1 vez por segundo?
+           JS tiene unas funciones globales nativas que se puede usar para trabajar con temporizadores.
+           Angular provee servicios que se relacionan con esas dos funciones $timeout y $interval.
+           Queremos que se llame a esta funcion 1 vez por segundo. Porque elegir los servicios ante las 
+           funciones de JS? Porque se puede hacer pruebas unitarias. Es más facil hacer las pruebas con 
+           Angular que con objetos JS. Otra razón es como Angular hace internamente el data binding
+        */
+        var decrementCountdown = function(){
+            $scope.countdown -= 1;
+            if($scope.countdown < 1){
+                $scope.search($scope.username);
+            };
+        };
+
+        var startCountdown = function(){
+            //Después de 5 tics deja de llamar la decrementCountdown
+            $interval(decrementCountdown, 1000, $scope.countdown)
+        };
         
         $scope.search = function(username){
             $http.get("https://api.github.com/users/" + username)
                     .then(onUserComplete, onError);
         };
-        
-
 
         $scope.username = "angular";
         $scope.message = "GitHub Viewer";
         $scope.repoSortOrder = "-stargazers_count";
+        $scope.countdown = 5;
+        startCountdown();
     };
 
     /* 
@@ -37,7 +57,7 @@
         por eso es importante informar a Angular, que el primer parámetro corresponde a 
         $scope y el segundo a $http
     */
-    app.controller("MainCtrl", ["$scope", "$http", MainCtrl])
+    app.controller("MainCtrl", ["$scope", "$http", "$interval", MainCtrl])
 
 }())    
 
