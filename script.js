@@ -3,7 +3,7 @@
     
     var app = angular.module("gitHubViewer", [])
 
-    var MainCtrl = function($scope, $http, $interval) {
+    var MainCtrl = function($scope, $http, $interval, $log) {
 
         var onUserComplete = function(response){
             $scope.user = response.data;
@@ -35,14 +35,22 @@
             };
         };
 
+        var countdownInterval = null;
+        
         var startCountdown = function(){
             //Después de 5 tics deja de llamar la decrementCountdown
-            $interval(decrementCountdown, 1000, $scope.countdown)
+            //Cuando llamo a interval esto me devuelve un objeto
+            countdownInterval = $interval(decrementCountdown, 1000, $scope.countdown);
         };
         
         $scope.search = function(username){
+            $log.info("Searching for " + username);
             $http.get("https://api.github.com/users/" + username)
                     .then(onUserComplete, onError);
+            if(countdownInterval){
+                $interval.cancel(countdownInterval);
+                $scope.countdown = null;
+            }        
         };
 
         $scope.username = "angular";
@@ -57,7 +65,7 @@
         por eso es importante informar a Angular, que el primer parámetro corresponde a 
         $scope y el segundo a $http
     */
-    app.controller("MainCtrl", ["$scope", "$http", "$interval", MainCtrl])
+    app.controller("MainCtrl", ["$scope", "$http", "$interval", "$log", MainCtrl])
 
 }())    
 
